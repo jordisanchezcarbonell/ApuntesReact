@@ -53,6 +53,36 @@ class Text extends Component{
   }
 
 }
+
+class Contador extends Component{
+  //Obtenemos los valores de las props en el constructor para poder acceder a ellas
+  constructor(props){
+    super(props)
+    //PARA MODIFICAR ELEMENTOS DEL STATE HACE FALTA PONER EL .SETINTERVAL , cada segundo suma +1 al contador
+    this.state={contador:this.props.contadorInicial}
+    setInterval(()=>{
+      this.setState({contador:this.state.contador+1})
+    },1000)
+  }
+  render(){
+    return <ContadorNumero numero = {this.state.contador}></ContadorNumero>
+  }
+}
+//Creamos los valores de default de las props
+Contador.defaultProps={
+  contadorInicial:0
+}
+//Obtenemeos el estate del contador.
+class ContadorNumero extends Component{
+ 
+  render(){
+    //Ver si el componento esta cargando y actualizando 
+    console.log('ContadorNumero render()')
+    return <span>{this.props.numero}</span>
+  }
+}
+
+
 function App() {
   return (
     <div className="App">
@@ -76,7 +106,7 @@ function App() {
         >
       
         </Text>
-
+      <Contador  contadorInicial={10}></Contador>
         <a
           className="App-link"
           href="https://reactjs.org"
