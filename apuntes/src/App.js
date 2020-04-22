@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import ConditionalSections from './section/conditional'
+import cats from './data/cats.json'
 //Una manera de hacerlo
 function Primercompo(props){
   return  <p> { props.title }</p>
@@ -68,6 +69,41 @@ class Contador extends Component{
     return <ContadorNumero numero = {this.state.contador}></ContadorNumero>
   }
 }
+
+//OBTENEMOS LOS ITEMS DEL JSON Y LOS ENVIAMOS AL COMPONENTE DETALLES
+class ARRAYDEITEMS extends Component{
+  
+  render(){
+
+    return(
+      <div>
+        <h4>LISTA DE ELEMENTOS</h4>
+        <ul>{
+          cats.map(cat=>{
+            return <ARRAYDETALLES key={cat.id} cat={cat}/>
+          })
+        }
+        </ul>
+      </div>
+    );  
+  }
+
+}
+
+//Pasamos el elemento del array para ver el objeto y su detalle
+class ARRAYDETALLES extends Component{
+  render(){
+    const {cat} = this.props
+    return(<li>
+      <p> <strong>Nombre: </strong>{cat.name}</p>
+      <p> <strong>Nombre: </strong>{cat.company}</p>
+      
+      </li>
+   )
+  }
+
+
+}
 //Creamos los valores de default de las props
 Contador.defaultProps={
   contadorInicial:0
@@ -79,6 +115,18 @@ class ContadorNumero extends Component{
     //Ver si el componento esta cargando y actualizando 
     console.log('ContadorNumero render()')
     return <span>{this.props.numero}</span>
+  }
+}
+
+class ListadeArrays extends Component{
+ 
+  render(){
+    const number = [1,1,3,4,5]
+    //Ver si el componento esta cargando y actualizando 
+    
+    return <span>{number.map((number,index)=>{
+    return <p key={index}> Soy el numero  {number} </p>
+    })}</span>
   }
 }
 
@@ -107,6 +155,10 @@ function App() {
       
         </Text>
       <Contador  contadorInicial={10}></Contador>
+
+      <ConditionalSections></ConditionalSections>
+      <ListadeArrays></ListadeArrays>
+      <ARRAYDEITEMS></ARRAYDEITEMS>
         <a
           className="App-link"
           href="https://reactjs.org"
